@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDDOG ChatBot</title>
+    <link rel="stylesheet" href="style_mobile.css">
+    <link rel="stylesheet" href="style_pc.css">
+    <link rel="stylesheet" href="style_nav.css">
+    <link rel="stylesheet" href="style_tablet.css">
+    <link rel="stylesheet" href="darkmode.css">
+    <style>
+        #chat-container {
+            border-radius: 0px 0px 20px 20px;
+            width: 90vw;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 88vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #chat-box {
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: 80vh;
+            text-align: left;
+        }
+        #input-box {
+            width: 90vw;
+        }
+        #user-input {
+            width: 70%;
+            border-radius: 20px;
+            padding: 10px 5px;
+            border: 1px solid;
+            background-color: #cccccc27;
+        }
+        #send-button {
+            font-size: 1.3rem;
+            border-radius: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            margin-left: 5px;
+            text-transform: uppercase;
+            color: white;
+            background-color: var(--color);
+        }
+        .res{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+
+        }
+        .suggested-response {
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin: 3px 1px; 
+            border: none;
+            cursor: pointer;
+            color: var(--color);
+            border: var(--color) solid 0.4px;
+            background-color: transparent;
+              }
+        .encrypt{
+            border-radius: 20px;
+            margin: 0 auto;
+            width: 80vw;
+            display: none;
+            padding: 20px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+        .encrypt input{
+            width: 50vw;
+            margin: 5px 30px;
+            padding: 7px;
+            border-radius: 10px;
+            border: none;
+            background-color: #cccccc37;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+        .collapsible:active{
+            background-color: black;
+            color: white;
+        }
+        .encrypt>button{
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        .encrypt button:hover{
+            background-color: black;
+            color: white;
+        }
+        .logopic button{
+          list-style-type: none;
+          border: none;
+          margin: 5px;
+          background-color: transparent;
+          border-radius: 4px;
+          width: 90%;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        }
+        .logopic:hover{
+          height: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="logopic">
+        <img src="https://drive.google.com/uc?id=1vSq4wpb4akw42tVeH8rwAFKmT0yjvbbJ" alt="">
+             <ul>
+                <li><a href="index.html"><ion-icon name="home-outline"></ion-icon></a></li>
+                <li><a href="tel:+8801816267777"><ion-icon name="call-outline"></ion-icon></a></li>
+                <li><a href=""><ion-icon name="qr-code-outline"></ion-icon></a></li>
+                <li><a class="dark-mode-toggle" href="#"><ion-icon name="contrast-outline"></ion-icon></a></li>
+                <button type="button" class="collapsible" onclick="toggleEncryption()"> 
+                  <a href="#ssa">
+                      <ion-icon name="cog-outline"></ion-icon>
+                  </a>
+              </button>
+             </ul>
+      </div>
+    
+<h2 style="margin: 0px; height: 4vh; display: grid; place-items: center;">ChatBot</h2>
+
+<div id="chat-container">
+    <div id="chat-box"></div>
+    <!-- Add suggested responses as buttons -->
+<div class="res">
+  <button class="suggested-response" onclick="addSuggestedResponse('কি কি করতে পারো?')">কি কি করতে পারো?</button>
+  <button class="suggested-response" onclick="addSuggestedResponse('উদ্যোগ কি?')">উদ্যোগ কি?</button>
+  <button class="suggested-response" onclick="addSuggestedResponse('মূলনীতি')">মূলনীতি</button>
+  <button class="suggested-response" onclick="addSuggestedResponse('রক্ত দেওয়ার উপকারিতা কি?')">রক্ত দেওয়ার উপকারিতা কি?</button> 
+</div>
+    <div id="input-box">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-button" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+
+
+
+    <!-- Input fields for users to add new responses -->
+    <div class="encrypt" id="ssa">
+      <input type="text" id="new-response" placeholder="Your KEY">
+      <input type="text" id="new-answer" placeholder="Your Encryption">
+      <button class="abii" onclick="addNewResponse()">Encrypt It</button>
+      <button onclick="clearAndRestoreResponses()">Clear All Data</button>
+      <div class="emer">
+          <h3>INFORM US FOR FIXING BUG</h3>
+      </div>
+  </div>
+
+
+    <script src="chatbot.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.3.3/math.min.js"></script>
+
+<script>
+
+
+function toggleEncryption() {
+        var content = document.getElementById("ssa");
+        content.classList.toggle("active");
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    }
+
+ 
+//moreeeee
+
+const darkModeToggles = document.querySelectorAll('.dark-mode-toggle');
+const body = document.body;
+
+// Check if the user's dark mode preference is stored
+if (localStorage.getItem('darkMode') === 'enabled') {
+    enableDarkMode();
+}
+
+darkModeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            disableDarkMode();
+        } else {
+            enableDarkMode();
+        }
+    });
+});
+
+function enableDarkMode() {
+    body.classList.add('dark-mode');
+    localStorage.setItem('darkMode', 'enabled');
+}
+
+function disableDarkMode() {
+    body.classList.remove('dark-mode');
+    localStorage.setItem('darkMode', 'disabled');
+}
+
+
+
+//colour Picker
+
+function changeColor(newColor) {
+    document.documentElement.style.setProperty('--color', newColor);
+    localStorage.setItem('mainColor', newColor);
+}
+
+// Check if there is a saved color in local storage and apply it
+const savedColor = localStorage.getItem('mainColor');
+if (savedColor) {
+    changeColor(savedColor);
+}
+
+
+
+
+
+
+////part
+
+  //pressing Enter
+  
+  document.getElementById("user-input").addEventListener("keydown", function(event) {
+    // Check if the pressed key is Enter (key code 13)
+    if (event.keyCode === 13) {
+      // Prevent the default behavior of the Enter key (e.g., new line in the input field)
+      event.preventDefault();
+
+      // Simulate a click on the "Send" button
+      document.getElementById("send-button").click();
+    }
+  });
+
+
+// Function to handle suggested responses
+function addSuggestedResponse(suggestedResponse) {
+    const userInput = document.getElementById("user-input");
+    userInput.value = suggestedResponse;
+}
+
+// Function to clear all user responses and restore default responses
+function clearAndRestoreResponses() {
+    responses = JSON.parse(JSON.stringify(fixedResponses));
+    localStorage.setItem('chatbotResponses', JSON.stringify(responses));
+    console.log("Default responses restored");
+}
+
+// Function to add a new response provided by the user
+function addNewResponse() {
+    const newResponseInput = document.getElementById("new-response");
+    const newAnswerInput = document.getElementById("new-answer");
+
+    const newResponse = newResponseInput.value.trim().toLowerCase();
+    const newAnswer = newAnswerInput.value.trim();
+
+    if (newResponse !== "" && newAnswer !== "") {
+        // Add the new response to the responses object
+        responses[newResponse] = newAnswer;
+
+        // Save responses to local storage
+        localStorage.setItem('chatbotResponses', JSON.stringify(responses));
+
+        // Clear the input fields
+        newResponseInput.value = "";
+        newAnswerInput.value = "";
+
+        // Log the updated responses object (for demonstration purposes)
+        console.log(responses);
+    }
+}
+
+
+
+</script>
+
+</body>
+</html>
